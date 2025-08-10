@@ -2,8 +2,20 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 
-// --- SINGLE SOURCE OF TRUTH FOR TYPES ---
-// These now perfectly match our Django API models.
+// --- UPGRADED TYPES ---
+export interface NavLink {
+  id: number
+  text: string
+  url: string
+}
+
+export interface Navbar {
+  id: number
+  component_type: 'navbar'
+  content: string // This will be the Site Title
+  links: NavLink[]
+}
+
 export interface Component {
   id: number
   component_type: 'heading' | 'paragraph' | 'image'
@@ -14,17 +26,22 @@ export interface Component {
   }
   order: number
 }
+
 export interface Section {
   id: number
   section_type: string
   order: number
   components: Component[]
 }
+
+// THE CHANGE IS HERE: A Page now has a dedicated, optional navbar property.
 export interface Page {
   id: number
   name: string
+  navbar: Navbar | null
   sections: Section[]
 }
+
 export interface Project {
   id: number
   name: string
@@ -33,7 +50,6 @@ export interface Project {
 
 export const useEditorStore = defineStore('editor', () => {
   // --- STATE ---
-  // The state now reflects the full, nested structure.
   const currentProject = ref<Project | null>({
     id: 1,
     name: 'Phoenix Alpha',
@@ -41,6 +57,18 @@ export const useEditorStore = defineStore('editor', () => {
       {
         id: 1,
         name: 'Home',
+        // The navbar is now a first-class citizen of the page
+        navbar: {
+          id: 100, // A unique ID
+          component_type: 'navbar',
+          content: 'Standard',
+          links: [
+            { id: 1, text: 'Home', url: '#' },
+            { id: 2, text: 'About', url: '#' },
+            { id: 3, text: 'Contact', url: '#' },
+          ]
+        },
+        // The sections are now separate
         sections: [
           {
             id: 1,
@@ -58,10 +86,14 @@ export const useEditorStore = defineStore('editor', () => {
   const selectedComponentId = ref<number | null>(null);
 
   // --- GETTERS ---
-  const selectedComponent = computed((): Component | undefined => {
+  const selectedComponent = computed((): Component | Navbar | undefined => {
     if (!currentProject.value || selectedComponentId.value === null) return undefined;
-    // We must now loop through pages and sections to find the selected component
     for (const page of currentProject.value.pages) {
+      // First, check if the selected component is the navbar
+      if (page.navbar?.id === selectedComponentId.value) {
+        return page.navbar;
+      }
+      // If not, search within the sections
       for (const section of page.sections) {
         const component = section.components.find(c => c.id === selectedComponentId.value);
         if (component) return component;
@@ -75,35 +107,55 @@ export const useEditorStore = defineStore('editor', () => {
     selectedComponentId.value = id;
   }
 
-  function updateComponentProperty(property: keyof Component['styles'] | 'content', value: any) {
-    if (selectedComponent.value) {
-        if (property === 'content') {
-            selectedComponent.value.content = value;
-        } else {
-            selectedComponent.value.styles[property] = value;
+  function updateComponentProperty(property: keyof Component | 'content' | `styles.${keyof Component['styles']}`, value: any) {
+    if (!selectedComponent.value) return;
+    
+    // Handle style updates
+    if (typeof property === 'string' && property.startsWith('styles.')) {
+        const styleKey = property.split('.')[1] as keyof Component['styles'];
+        if ('styles' in selectedComponent.value && selectedComponent.value.styles) {
+            selectedComponent.value.styles[styleKey] = value;
         }
+    } 
+    // Handle all other property updates
+    else if ('content' === property) {
+        (selectedComponent.value as Component | Navbar).content = value;
     }
   }
 
-  function addComponent(sectionId: number, component: Omit<Component, 'id'>) {
-    if (currentProject.value?.pages[0]) {
-        const section = currentProject.value.pages[0].sections.find(s => s.id === sectionId);
-        if (section) {
-            const newComponent: Component = {
-                id: Date.now(),
-                ...component
-            };
-            section.components.push(newComponent);
-        }
+  function addNavLink() {
+    const navbar = currentProject.value?.pages[0]?.navbar;
+    if (navbar) {
+      if (!navbar.links) navbar.links = [];
+      navbar.links.push({ id: Date.now(), text: 'New Link', url: '#' });
     }
   }
 
+  function updateNavLink(linkId: number, property: 'text' | 'url', value: string) {
+    const navbar = currentProject.value?.pages[0]?.navbar;
+    if (navbar?.links) {
+      const link = navbar.links.find(l => l.id === linkId);
+      if (link) {
+        link[property] = value;
+      }
+    }
+  }
+
+  function deleteNavLink(linkId: number) {
+    const navbar = currentProject.value?.pages[0]?.navbar;
+    if (navbar?.links) {
+      navbar.links = navbar.links.filter(l => l.id !== linkId);
+    }
+  }
+  
   return {
     currentProject,
     selectedComponentId,
     selectedComponent,
     selectComponent,
     updateComponentProperty,
-    addComponent,
+    addNavLink,
+    updateNavLink,
+    deleteNavLink
   }
 });
