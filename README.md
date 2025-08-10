@@ -78,15 +78,3 @@ This repository contains two primary projects:
     npm run dev
     ```
     The frontend editor will be running at `http://localhost:5173/` (or a similar port). The editor connects to the Django server for its data.
-
----
-
-This README establishes the project's purpose and provides a clear, professional guide for anyone who interacts with the code.
-
-### **Next Action: Commit the README**
-
-Now that you've created the file, let's add it to your repository.
-
-**Action:** In your terminal (inside the `Standard-Platform` folder), run these commands:
-
-```bash
