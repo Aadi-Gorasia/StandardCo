@@ -1,21 +1,49 @@
 # api/serializers.py
 
 from rest_framework import serializers
-from .models import Project
+from .models import Project, Page, Section, Component
 
-class ProjectSerializer(serializers.ModelSerializer):
-    """
-    This serializer will translate the Project model into a JSON format.
-    """
+class ComponentSerializer(serializers.ModelSerializer):
+    """ Translates a single Component model into JSON. """
+    class Meta:
+        model = Component
+        # Includes the new 'styles' and 'order' fields
+        fields = ['id', 'component_type', 'content', 'styles', 'order']
+
+class SectionSerializer(serializers.ModelSerializer):
+    """ Translates a Section and nests all of its Components. """
+    # This nests the ComponentSerializer, showing all components inside this section.
+    components = ComponentSerializer(many=True, read_only=True)
 
     class Meta:
-        # The model we want to translate
+        model = Section
+        fields = ['id', 'section_type', 'order', 'components']
+
+class PageSerializer(serializers.ModelSerializer):
+    """ Translates a Page and nests all of its Sections. """
+    # This nests the SectionSerializer, creating a full page structure.
+    sections = SectionSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Page
+        fields = ['id', 'name', 'sections']
+
+class ProjectDetailSerializer(serializers.ModelSerializer):
+    """ 
+    Translates a full Project, nesting all of its Pages.
+    This is the main serializer our editor will use to get a complete website.
+    """
+    pages = PageSerializer(many=True, read_only=True)
+
+    class Meta:
         model = Project
-        
-        # The specific fields we want to include in the JSON output
-        fields = ['id', 'user', 'name', 'created_at', 'updated_at']
-        
-        # We make the 'user' field read-only to prevent it from being
-        # changed via the API. The user will be set automatically based on
-        # who is logged in.
+        fields = ['id', 'user', 'name', 'created_at', 'updated_at', 'pages']
         read_only_fields = ['user']
+
+class ProjectListSerializer(serializers.ModelSerializer):
+    """ 
+    A simpler serializer for just listing project names, without all the detail.
+    """
+    class Meta:
+        model = Project
+        fields = ['id', 'name', 'updated_at']

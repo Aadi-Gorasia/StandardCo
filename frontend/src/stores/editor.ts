@@ -2,82 +2,108 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 
-// The upgraded component interface
+// --- SINGLE SOURCE OF TRUTH FOR TYPES ---
+// These now perfectly match our Django API models.
 export interface Component {
   id: number
   component_type: 'heading' | 'paragraph' | 'image'
   content: string
-  fontSize?: string
-  color?: string
-  alt?: string
+  styles: {
+    fontSize?: string
+    color?: string
+  }
+  order: number
+}
+export interface Section {
+  id: number
+  section_type: string
+  order: number
+  components: Component[]
+}
+export interface Page {
+  id: number
+  name: string
+  sections: Section[]
 }
 export interface Project {
   id: number
   name: string
-  components: Component[]
+  pages: Page[]
 }
 
 export const useEditorStore = defineStore('editor', () => {
+  // --- STATE ---
+  // The state now reflects the full, nested structure.
   const currentProject = ref<Project | null>({
     id: 1,
     name: 'Phoenix Alpha',
-    components: [
-      { id: 1, component_type: 'heading', content: 'Welcome to the Phoenix Editor.', fontSize: '2.5rem', color: '#111827' },
-      { id: 2, component_type: 'paragraph', content: 'Drag components. Drop them. Click to edit.' },
-      { id: 3, component_type: 'image', content: 'https://images.unsplash.com/photo-1555949963-ff98c6258fa9?q=80&w=2070', alt: 'A laptop with code on the screen' },
+    pages: [
+      {
+        id: 1,
+        name: 'Home',
+        sections: [
+          {
+            id: 1,
+            section_type: 'Hero',
+            order: 1,
+            components: [
+              { id: 1, component_type: 'heading', content: 'Welcome to the Phoenix Editor.', styles: { fontSize: '2.5rem', color: '#111827' }, order: 1 },
+              { id: 2, component_type: 'paragraph', content: 'You can now drag and drop entire sections, or individual components within a section.', styles: {}, order: 2 },
+            ]
+          }
+        ]
+      }
     ]
   });
   const selectedComponentId = ref<number | null>(null);
 
-  const selectedComponent = computed(() => {
-    return currentProject.value?.components.find(c => c.id === selectedComponentId.value);
+  // --- GETTERS ---
+  const selectedComponent = computed((): Component | undefined => {
+    if (!currentProject.value || selectedComponentId.value === null) return undefined;
+    // We must now loop through pages and sections to find the selected component
+    for (const page of currentProject.value.pages) {
+      for (const section of page.sections) {
+        const component = section.components.find(c => c.id === selectedComponentId.value);
+        if (component) return component;
+      }
+    }
+    return undefined;
   });
 
+  // --- ACTIONS ---
   function selectComponent(id: number | null) {
     selectedComponentId.value = id;
   }
 
-  // A powerful, generic action to update ANY property
-  function updateComponentProperty(property: keyof Component, value: any) {
+  function updateComponentProperty(property: keyof Component['styles'] | 'content', value: any) {
     if (selectedComponent.value) {
-      const componentToUpdate = selectedComponent.value as any;
-      componentToUpdate[property] = value;
-    }
-  }
-
-  // Action to delete a component
-  function deleteComponent(componentId: number) {
-    if (currentProject.value) {
-      const index = currentProject.value.components.findIndex(c => c.id === componentId);
-      if (index > -1) {
-        currentProject.value.components.splice(index, 1);
-        if (selectedComponentId.value === componentId) {
-          selectedComponentId.value = null;
+        if (property === 'content') {
+            selectedComponent.value.content = value;
+        } else {
+            selectedComponent.value.styles[property] = value;
         }
-      }
     }
   }
 
-  // Action to duplicate a component
-  function duplicateComponent(componentId: number) {
-    if (currentProject.value) {
-      const originalComponent = currentProject.value.components.find(c => c.id === componentId);
-      const index = currentProject.value.components.findIndex(c => c.id === componentId);
-      if (originalComponent && index > -1) {
-        const newComponent = JSON.parse(JSON.stringify(originalComponent));
-        newComponent.id = Date.now();
-        currentProject.value.components.splice(index + 1, 0, newComponent);
-      }
+  function addComponent(sectionId: number, component: Omit<Component, 'id'>) {
+    if (currentProject.value?.pages[0]) {
+        const section = currentProject.value.pages[0].sections.find(s => s.id === sectionId);
+        if (section) {
+            const newComponent: Component = {
+                id: Date.now(),
+                ...component
+            };
+            section.components.push(newComponent);
+        }
     }
   }
-  
-  return { 
-    currentProject, 
-    selectedComponentId, 
-    selectedComponent, 
-    selectComponent, 
+
+  return {
+    currentProject,
+    selectedComponentId,
+    selectedComponent,
+    selectComponent,
     updateComponentProperty,
-    deleteComponent,
-    duplicateComponent,
+    addComponent,
   }
 });
