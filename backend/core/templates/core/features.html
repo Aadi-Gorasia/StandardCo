@@ -1,0 +1,59 @@
+<!-- core/templates/core/features.html -->
+{% extends "core/base.html" %}
+
+{% block content %}
+    <main>
+        <!-- PAGE HERO -->
+        <section class="page-hero-section">
+            <div class="hero-title-wrapper">
+                <h1 class="hero-title">Core Technology</h1>
+            </div>
+            <p class="hero-subtitle fade-in">
+                A deep dive into the engine that powers Standard. Built for speed, precision, and unlimited creative freedom.
+            </p>
+        </section>
+
+        <hr class="visual-divider">
+
+        <!-- FEATURE DEEP DIVE SECTION -->
+        <section class="feature-deep-dive-section">
+            {% for feature in features %}
+                <div class="feature-item">
+                    <div class="feature-icon-wrapper">
+                        <div class="feature-card-icon">
+                            <!-- The SVG path data comes from our views.py file -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2">
+                                {{ feature.svg_icon_path|safe }}
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="feature-description">
+                        <h3>{{ feature.name }}</h3>
+                        <p class="feature-main-description">{{ feature.description }}</p>
+                        <ul class="feature-sub-points">
+                            {% for point in feature.sub_points %}
+                                <li>{{ point }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Add a divider between features, but not after the last one -->
+                {% if not forloop.last %}
+                    <hr class="visual-divider feature-divider">
+                {% endif %}
+            {% endfor %}
+        </section>
+
+        <hr class="visual-divider">
+
+        <!-- FINAL CTA -->
+        <section class="final-cta-section-about">
+            <div class="section-heading-wrapper">
+                <h2 class="reveal-heading">Ready to build with these tools?</h2>
+            </div>
+            <p class="section-subheading fade-in">Your vision is waiting to be architected.</p>
+            <a href="#" class="cta-button fade-in">Get Started Now</a>
+        </section>
+    </main>
+{% endblock %}

@@ -1,0 +1,36 @@
+<!-- templates/registration/login.html -->
+{% extends "core/base.html" %}
+
+{% block content %}
+    <main>
+        <!-- PAGE HERO -->
+        <section class="page-hero-section">
+            <div class="hero-title-wrapper">
+                <h1 class="hero-title">Welcome Back.</h1>
+            </div>
+            <p class="hero-subtitle fade-in">
+                Log in to your account to continue building.
+            </p>
+        </section>
+
+        <!-- LOGIN FORM SECTION -->
+        <section class="auth-form-section">
+            <div class="auth-form-wrapper">
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <!-- This renders the Username and Password fields from Django's AuthenticationForm -->
+                    {{ form.as_p }}
+
+                    <div class="form-submit-wrapper">
+                        <button type="submit" class="cta-button">Login</button>
+                    </div>
+                </form>
+
+                <p class="auth-helper-text">
+                    Don't have an account? <a href="{% url 'accounts:signup' %}">Sign up</a>
+                </p>
+            </div>
+        </section>
+    </main>
+{% endblock %}

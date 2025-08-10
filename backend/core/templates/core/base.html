@@ -1,0 +1,55 @@
+<!-- core/templates/core/base.html - FINAL VERSION (WITH SECURE LOGOUT FORM) -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standard | Build Your Digital Presence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'core/style.css' %}?v=3.2">
+</head>
+<body>
+
+    <header class="site-header">
+        <a href="{% url 'core:homepage' %}" class="logo">Standard</a>
+        <nav>
+            <a href="{% url 'core:about' %}">About</a>
+            <a href="{% url 'core:features' %}">Features</a>
+            <a href="{% url 'core:contact' %}">Contact</a>
+            <a href="{% url 'core:donate' %}">Donate</a>
+        </nav>
+        <div class="header-auth-links">
+            {% if user.is_authenticated %}
+                <span class="welcome-user">Hello, {{ user.username }}!</span>
+                <a href="{% url 'dashboard' %}" class="login-link">Dashboard</a>
+                
+                <!-- THE FIX IS HERE: Replacing the <a> tag with a form -->
+                <form action="{% url 'logout' %}" method="post" class="logout-form">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-button">Logout</button>
+                </form>
+
+            {% else %}
+                <a href="{% url 'login' %}" class="login-link">Login</a>
+                <a href="{% url 'accounts:signup' %}" class="cta-button header-cta">Get Started</a>
+            {% endif %}
+        </div>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="{% url 'core:homepage' %}">Home</a>
+            <a href="{% url 'core:about' %}">About</a>
+            <a href="{% url 'login' %}">Login</a>
+        </div>
+        <p class="footer-copyright">&copy; {% now "Y" %} Standard. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="{% static 'core/main.js' %}?v=3.2"></script>
+</body>
+</html>

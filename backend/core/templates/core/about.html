@@ -1,0 +1,68 @@
+<!-- core/templates/core/about.html - THE STANDARD REBRAND (COMPLETE) -->
+{% extends "core/base.html" %}
+
+{% block content %}
+    <main>
+        <!-- ACT I: THE MANIFESTO -->
+        <section class="page-hero-section">
+            <div class="hero-title-wrapper">
+                <h1 class="hero-title">We believe great tools create great possibilities.</h1>
+            </div>
+            <p class="hero-subtitle fade-in">
+                <!-- THE CHANGE IS HERE -->
+                Standard was born from a simple obsession: to build a platform that's as ambitious as the people who use it. We're a non-profit dedicated to crafting the sharpest tools for the next generation of digital creators.
+            </p>
+        </section>
+
+        <hr class="visual-divider">
+
+        <!-- ACT II: THE ARCHITECTS -->
+        <section class="founders-section-about">
+            <div class="section-heading-wrapper">
+                <h2 class="reveal-heading">Meet The Architects</h2>
+            </div>
+            <div class="founders-grid-about">
+                {% for founder in founders %}
+                <div class="founder-profile-about">
+                    <div class="founder-image-wrapper-about">
+                        <img src="{{ founder.image_url }}" alt="Photo of {{ founder.name }}">
+                    </div>
+                    <div class="founder-bio-about">
+                        <h3>{{ founder.name }}</h3>
+                        <h4>{{ founder.role }}</h4>
+                        <p>{{ founder.bio }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <hr class="visual-divider">
+
+        <!-- ACT III: THE PRINCIPLES -->
+        <section class="principles-section">
+            <div class="section-heading-wrapper">
+                <h2 class="reveal-heading">Our Core Principles</h2>
+            </div>
+            <div class="principles-grid">
+                {% for principle in principles %}
+                <div class="principle-card">
+                    <h3>{{ principle.name }}</h3>
+                    <p>{{ principle.description }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <hr class="visual-divider">
+
+        <!-- FINAL CTA -->
+        <section class="final-cta-section-about">
+            <div class="section-heading-wrapper">
+                <h2 class="reveal-heading">Ready to join us?</h2>
+            </div>
+            <p class="section-subheading fade-in">Let's build the future of the web, together.</p>
+            <a href="#" class="final-cta-button fade-in">Set the Standard</a>
+        </section>
+    </main>
+{% endblock %}

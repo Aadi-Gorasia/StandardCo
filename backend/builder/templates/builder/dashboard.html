@@ -1,0 +1,49 @@
+<!-- builder/templates/builder/dashboard.html -->
+{% extends "core/base.html" %}
+
+{% block content %}
+    <main>
+        <!-- PAGE HERO -->
+        <section class="page-hero-section">
+            <div class="hero-title-wrapper">
+                <h1 class="hero-title">Welcome, {{ user.username }}.</h1>
+            </div>
+            <p class="hero-subtitle fade-in">
+                This is your creative space. Begin by choosing a foundation for your new website.
+            </p>
+        </section>
+
+        <hr class="visual-divider">
+
+        <!-- TEMPLATE SELECTION SECTION -->
+        <section class="template-selection-section">
+            <div class="template-grid">
+                <!-- Template 1: Portfolio -->
+                <div class="template-card">
+                    <div class="template-preview-image">
+                        <div style="width: 100%; height: 250px; background-color: #374151; display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); color: var(--subtle-text-color);">Template Preview</div>
+                    </div>
+                    <div class="template-info">
+                        <h3>Minimalist Portfolio</h3>
+                        <p>A clean, image-focused design perfect for artists, photographers, and designers.</p>
+                        <!-- THE LINK IS NOW FUNCTIONAL -->
+                        <a href="{% url 'builder:create_portfolio' %}" class="cta-button">Select This Template</a>
+                    </div>
+                </div>
+
+                <!-- Template 2: Service -->
+                <div class="template-card">
+                    <div class="template-preview-image">
+                        <div style="width: 100%; height: 250px; background-color: #374151; display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); color: var(--subtle-text-color);">Template Preview</div>
+                    </div>
+                    <div class="template-info">
+                        <h3>Modern Service</h3>
+                        <p>A professional, text-forward layout ideal for consultants, agencies, and local businesses.</p>
+                        <!-- This link is disabled for now until we build its assembly line -->
+                        <a href="#" class="cta-button" style="background: var(--subtle-text-color); cursor: not-allowed; box-shadow: none;">Coming Soon</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

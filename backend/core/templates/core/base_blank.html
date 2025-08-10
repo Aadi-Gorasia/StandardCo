@@ -1,0 +1,25 @@
+<!-- core/templates/core/base_blank.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standard Editor</title>
+
+    <!-- This block allows child templates to add their own CSS to the head -->
+    {% block head_extra %}{% endblock %}
+</head>
+<body>
+
+    <!-- 
+        The content of our editor_entry.html template will be injected here.
+        This is where the <div id="app"></div> will go.
+    -->
+    {% block content %}{% endblock %}
+
+    <!-- This block allows child templates to add their own JS to the end of the body -->
+    {% block body_extra %}{% endblock %}
+
+</body>
+</html>

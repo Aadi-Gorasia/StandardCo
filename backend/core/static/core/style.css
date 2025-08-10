@@ -1,0 +1,1197 @@
+/* core/static/core/style.css - THE DUSK THEME (DEFINITIVE & COMPLETE) */
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+    --primary-color: #a855f7; /* Vibrant Violet */
+    --primary-gradient: linear-gradient(45deg, #a855f7, #6366f1); /* Violet to Indigo Gradient */
+    --background-color: #111827; /* Deep Navy Blue */
+    --surface-color: #1f2937; /* A slightly lighter navy for cards */
+    --text-color: #d1d5db; /* Soft Off-White */
+    --heading-color: #f9fafb; /* Bright White */
+    --subtle-text-color: #9ca3af; /* Muted Grey */
+    --border-color: rgba(255, 255, 255, 0.1); /* Subtle White Border */
+    --font-heading: 'Space Mono', monospace;
+    --font-body: 'Manrope', sans-serif;
+}
+
+/* --- CUSTOM SCROLLBAR STYLES --- */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: var(--background-color);
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    border: 2px solid var(--background-color);
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #8b5cf6;
+}
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) var(--background-color);
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--text-color);
+    background-color: var(--background-color);
+    margin: 0;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* --- General Utilities --- */
+.section-heading-wrapper {
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+.reveal-heading {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: var(--heading-color);
+    text-align: center;
+}
+.section-subheading {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 4rem auto;
+    font-size: 1.1rem;
+    color: var(--subtle-text-color);
+}
+.visual-divider {
+    border: 0;
+    height: 1px;
+    background: var(--border-color);
+    margin: 6rem auto;
+}
+
+/* --- Header & Nav --- */
+.site-header {
+    padding: 1.5rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: rgba(17, 24, 39, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+
+    /* THE FIX IS HERE: Using a 3-column grid */
+    display: grid;
+    grid-template-columns: 1fr auto 1fr; /* Logo | Nav | Auth Links */
+    align-items: center;
+    gap: 2rem; /* Adds space between columns */
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--heading-color);
+    justify-self: start; /* Aligns logo to the left of its grid column */
+}
+
+.site-header nav {
+    justify-self: center; /* Aligns the nav block to the center of its grid column */
+}
+.site-header nav a {
+    font-family: var(--font-body);
+    font-weight: 700;
+    color: var(--subtle-text-color);
+    margin: 0 15px;
+    text-decoration: none;
+    transition: color .2s ease;
+}
+.site-header nav a:hover {
+    color: var(--heading-color);
+}
+
+.header-auth-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    justify-self: end; /* Aligns the auth links to the right of their grid column */
+}
+.login-link {
+    font-weight: 700;
+    color: var(--subtle-text-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+.login-link:hover {
+    color: var(--heading-color);
+}
+.header-cta {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+}
+.welcome-user {
+    color: var(--subtle-text-color);
+}
+
+/* ADD THESE NEW RULES to the end of the Header & Nav block */
+
+.logout-form {
+    margin: 0; /* Removes default form margin */
+}
+
+.logout-button {
+    /* Reset all button styles */
+    background: none;
+    border: none;
+    padding: 20%;
+    margin: 0;
+    cursor: pointer;
+    
+    /* Apply the same styles as our other header links */
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1rem; /* Match the .login-link font size */
+    color: var(--text-color);
+    transition: color 0.2s ease;
+    background-color: #6366f1;
+    border-radius: 8px;
+}
+
+.logout-button:hover {
+    color: var(--heading-color);
+    transition: .3s ease;
+    transform: scale(1.05); /* Slightly enlarges the button on hover */
+}
+
+
+/* --- Hero Section & General CTA Button Styles --- */
+.hero-section {
+    padding: 8rem 0;
+    text-align: center;
+}
+.hero-title-wrapper {
+    overflow: hidden;
+}
+.hero-title {
+    font-family: var(--font-body);
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: var(--heading-color);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+}
+.hero-subtitle {
+    font-size: 1.25rem;
+    max-width: 650px;
+    margin: 0 auto 2.5rem auto;
+    color: var(--subtle-text-color);
+}
+.final-cta-button {
+    background: #fff;
+    color: var(--background-color);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    transition: all .3s ease;
+    display: inline-block;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    box-shadow: 0 4px 25px rgba(168, 85, 247, 0.3);
+}
+.cta-button {
+    background: var(--primary-gradient);
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    transition: all .3s ease;
+    display: inline-block;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    box-shadow: 0 4px 25px rgba(168, 85, 247, 0.3);
+}
+.cta-button:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 35px rgba(168, 85, 247, 0.4);
+}
+
+/* --- Feature Grid Section --- */
+.feature-grid-section {
+    padding: 6rem 0;
+    position: relative;
+    perspective: 1000px;
+}
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    position: relative;
+    z-index: 2;
+}
+.feature-card {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all .2s ease-out;
+    will-change: transform;
+    transform-style: preserve-3d;
+}
+.feature-card:hover {
+    border-color: var(--primary-color);
+}
+.feature-card-content {
+    transform: translateZ(20px);
+}
+.feature-card-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-gradient);
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+.feature-card-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: #fff;
+}
+.feature-card h3 {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--heading-color);
+    margin: 0 0 0.5rem 0;
+}
+.feature-card p {
+    margin: 0;
+    color: var(--subtle-text-color);
+}
+.blueprint-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+.blueprint-bg svg {
+    width: 100%;
+    height: 100%;
+}
+.blueprint-bg .grid-line {
+    stroke: var(--border-color);
+    stroke-width: 1;
+    stroke-dasharray: 4 8;
+}
+.blueprint-bg .draw-line {
+    stroke: var(--primary-color);
+    stroke-width: 1.5;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+}
+
+/* --- Manifesto Section --- */
+.manifesto-section {
+    padding: 6rem 0;
+    text-align: center;
+}
+.manifesto-content p {
+    font-family: var(--font-body);
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--heading-color);
+    max-width: 800px;
+    margin: 0 auto;
+    font-style: italic;
+}
+
+/* --- How It Works Section --- */
+.how-it-works-section {
+    padding: 6rem 0;
+}
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+.step-item {
+    border-top: 2px solid var(--border-color);
+    padding-top: 1.5rem;
+}
+.step-number {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+.step-item h4 {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--heading-color);
+    margin: 0 0 .5rem 0;
+}
+.step-item p {
+    margin: 0;
+    color: var(--subtle-text-color);
+}
+
+/* --- Founders Section --- */
+.founders-section {
+    padding: 6rem 0;
+}
+.founders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 4rem;
+}
+.founder-profile {
+    display: flex;
+    flex-direction: column;
+}
+.founder-image-wrapper {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    overflow: hidden;
+}
+.founder-bio h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--heading-color);
+    margin: 0;
+}
+.founder-bio h4 {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--primary-color);
+    margin: .25rem 0 1rem 0;
+    font-weight: 700;
+}
+.founder-bio p {
+    margin: 0;
+    color: var(--subtle-text-color);
+}
+
+/* --- Unfair Advantage Section --- */
+.advantage-section {
+    padding: 6rem 0;
+}
+.advantage-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.advantage-card {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2.5rem;
+    background: var(--surface-color);
+    transition: all .3s ease;
+}
+.advantage-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    margin-top: 0;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+.advantage-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.advantage-card li {
+    font-weight: 700;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+.advantage-card li::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 1rem;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+.advantage-card.old-way {
+    opacity: .7;
+}
+.advantage-card.old-way h3 {
+    color: var(--subtle-text-color);
+}
+.advantage-card.old-way li {
+    color: var(--subtle-text-color);
+    text-decoration: line-through;
+}
+.advantage-card.old-way li::before {
+    content: '✖';
+    color: #ef4444;
+}
+.advantage-card.our-way {
+    border: 1px solid var(--primary-color);
+    box-shadow: 0 8px 40px rgba(168, 85, 247, 0.2);
+}
+.advantage-card.our-way h3 {
+    color: var(--primary-color);
+}
+.advantage-card.our-way li {
+    color: var(--heading-color);
+}
+.advantage-card.our-way li::before {
+    content: '✔';
+    color: var(--primary-color);
+}
+
+/* --- FAQ Section --- */
+.faq-section {
+    padding: 6rem 0;
+    max-width: 800px;
+    margin: 0 auto;
+}
+.accordion-item {
+    border-bottom: 1px solid var(--border-color);
+}
+.accordion-header {
+    padding: 1.5rem 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.accordion-header h4 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--heading-color);
+}
+.accordion-icon {
+    transition: transform .3s ease;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 1rem;
+    color: var(--subtle-text-color);
+}
+.accordion-item.active .accordion-content {
+    padding: 0 1rem 1.5rem 1rem;
+}
+.accordion-item.active .accordion-icon {
+    transform: rotate(135deg);
+}
+
+/* --- Final "Your Turn" CTA --- */
+.final-cta-section {
+    padding: 8rem 0;
+    text-align: center;
+}
+.final-cta-button:hover {
+    background: transparent;
+    color: var(--heading-color);
+    border-color: var(--heading-color);
+    box-shadow: none;
+}
+
+/* --- Footer --- */
+.site-footer {
+    padding: 4rem 2rem;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+    margin-top: 6rem;
+}
+.footer-links a {
+    font-weight: 700;
+    color: var(--subtle-text-color);
+    margin: 0 1rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+.footer-links a:hover {
+    color: var(--primary-color);
+}
+.footer-copyright {
+    margin-top: 1.5rem;
+    font-size: .9rem;
+    color: #6b7280;
+}
+
+/* --- STYLES FOR THE ABOUT US PAGE --- */
+.page-hero-section {
+    padding: 6rem 0;
+    text-align: center;
+}
+.founders-section-about {
+    padding: 6rem 0;
+}
+.founders-grid-about {
+    display: grid;
+    gap: 6rem;
+}
+.founder-profile-about {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+    align-items: center;
+}
+.founder-profile-about:nth-child(even) .founder-image-wrapper-about {
+    grid-column: 2;
+}
+.founder-profile-about:nth-child(even) .founder-bio-about {
+    grid-column: 1;
+    grid-row: 1;
+}
+.founder-image-wrapper-about {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+.founder-image-wrapper-about img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.founder-bio-about h3 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--heading-color);
+    margin: 0;
+}
+.founder-bio-about h4 {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--primary-color);
+    margin: 0.25rem 0 1.5rem 0;
+    font-weight: 700;
+}
+.founder-bio-about p {
+    margin: 0;
+    color: var(--subtle-text-color);
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+.principles-section {
+    padding: 6rem 0;
+}
+.principles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+.principle-card {
+    border-top: 2px solid var(--primary-color);
+    padding-top: 1.5rem;
+}
+.principle-card h3 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--heading-color);
+    margin: 0 0 0.5rem 0;
+}
+.principle-card p {
+    margin: 0;
+    color: var(--subtle-text-color);
+}
+.final-cta-section-about {
+    padding: 6rem 0 8rem 0;
+    text-align: center;
+}
+
+/* --- RESPONSIVE STYLES (FINAL CURATED VERSION) --- */
+@media (max-width: 1024px) and (min-width: 769px) {
+    main {
+        padding: 0 1.5rem;
+    }
+    .hero-title {
+        font-size: 3.8rem;
+    }
+    .feature-grid,
+    .steps-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .feature-card:last-child,
+    .step-item:last-child {
+        grid-column: 1 / -1;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    .founders-grid {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+    }
+    .founder-profile {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 2rem;
+        align-items: center;
+    }
+    .founder-profile:nth-child(even) .founder-image-wrapper {
+        grid-column: 2;
+        grid-row: 1;
+    }
+    .founder-profile:nth-child(even) .founder-bio {
+        grid-column: 1;
+        grid-row: 1;
+    }
+    .founder-image-wrapper div {
+        height: 350px !important;
+    }
+    .advantage-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .principles-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .principle-card:last-child {
+        grid-column: 1 / -1;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        padding: 0 1rem;
+    }
+    .site-header {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    .site-header nav {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .site-header nav a {
+        margin: 0 10px;
+    }
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    .manifesto-content p {
+        font-size: 1.3rem;
+    }
+    .feature-grid,
+    .steps-grid,
+    .founders-grid,
+    .advantage-grid,
+    .founder-profile-about,
+    .principles-grid {
+        grid-template-columns: 1fr;
+    }
+    .founder-profile-about:nth-child(even) .founder-image-wrapper-about,
+    .founder-profile-about:nth-child(even) .founder-bio-about {
+        grid-column: 1;
+    }
+    .hero-section {
+        padding: 6rem 0;
+    }
+    .feature-grid-section,
+    .how-it-works-section,
+    .founders-section,
+    .advantage-section,
+    .faq-section {
+        padding: 4rem 0;
+    }
+    .visual-divider {
+        margin: 4rem auto;
+        width: 80%;
+    }
+}
+
+/* --- STYLES FOR THE CONTACT PAGE --- */
+
+.contact-form-section {
+    padding: 2rem 0 8rem 0;
+}
+
+.contact-form-wrapper {
+    max-width: 700px;
+    margin: 0 auto;
+    background: var(--surface-color);
+    padding: 3rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+}
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.form-group label {
+    display: block;
+    font-family: var(--font-body);
+    font-weight: 700;
+    color: var(--heading-color);
+    margin-bottom: 0.75rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text-color);
+    background-color: var(--background-color); /* Matches the site background */
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box; /* Important for consistent sizing */
+}
+
+/* Style for when a user clicks into a form field */
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.3); /* Creates a focus glow */
+}
+
+.form-group textarea {
+    resize: none; /* Allows users to resize the textarea vertically */
+    min-height: 120px;
+}
+
+.form-submit-wrapper {
+    text-align: right; /* Aligns the button to the right */
+}
+
+/* --- STYLES FOR AUTHENTICATION PAGES (SIGNUP/LOGIN) --- */
+
+.auth-form-section {
+    padding: 2rem 0 8rem 0;
+}
+
+.auth-form-wrapper {
+    max-width: 500px;
+    margin: 0 auto;
+    background: var(--surface-color);
+    padding: 3rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+}
+
+/* Django's form renders fields in <p> tags with labels and inputs */
+.auth-form-wrapper form p {
+    margin-bottom: 1.5rem;
+}
+
+.auth-form-wrapper label {
+    display: block;
+    font-family: var(--font-body);
+    font-weight: 700;
+    color: var(--heading-color);
+    margin-bottom: 0.75rem;
+}
+
+/* Styling the input fields themselves */
+.auth-form-wrapper input {
+    width: 100%;
+    padding: 0.9rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+}
+
+.auth-form-wrapper input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.3);
+}
+
+/* Django's help text (e.g., password requirements) */
+.auth-form-wrapper .helptext {
+    font-size: 0.85rem;
+    color: var(--subtle-text-color);
+    margin-top: 0.5rem;
+    display: block;
+}
+.auth-form-wrapper .helptext ul {
+    margin: 0.5rem 0 0 1rem;
+    padding-left: 1rem;
+}
+.auth-form-wrapper .helptext li {
+    margin-bottom: 0.25rem;
+}
+
+/* Django's error messages */
+.auth-form-wrapper .errorlist {
+    list-style: none;
+    padding: 0;
+    margin: -0.5rem 0 1rem 0;
+    color: #f87171; /* A nice, soft red for errors */
+    font-weight: 700;
+}
+
+.form-submit-wrapper {
+    margin-top: 2rem;
+    text-align: right;
+}
+
+/* ADD THIS NEW RULE at the end of the auth styles block */
+.auth-helper-text {
+    text-align: center;
+    margin-top: 2rem;
+    color: var(--subtle-text-color);
+}
+
+.auth-helper-text a {
+    color: var(--primary-color);
+    font-weight: 700;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.auth-helper-text a:hover {
+    opacity: 0.8;
+}
+
+/* --- STYLES FOR THE BUILDER DASHBOARD --- */
+
+.template-selection-section {
+    padding: 2rem 0 8rem 0;
+}
+
+.template-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+}
+
+.template-card {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden; /* Ensures the preview image respects the border radius */
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.template-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    border-color: var(--primary-color);
+}
+
+.template-preview-image {
+    background-color: #000; /* A dark background for the preview */
+}
+
+.template-info {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* This makes the info section fill the available space */
+}
+
+.template-info h3 {
+    font-family: var(--font-heading);
+    color: var(--heading-color);
+    font-size: 1.5rem;
+    margin: 0 0 0.5rem 0;
+}
+
+.template-info p {
+    color: var(--subtle-text-color);
+    margin: 0 0 2rem 0;
+    flex-grow: 1; /* Pushes the button to the bottom */
+}
+
+.template-info .cta-button {
+    align-self: flex-start; /* Aligns the button to the left */
+}
+
+/* --- STYLES FOR THE FEATURES PAGE --- */
+
+.feature-deep-dive-section {
+    padding: 6rem 0;
+}
+
+.feature-item {
+    display: grid;
+    grid-template-columns: auto 1fr; /* Column for icon, column for text */
+    gap: 3rem;
+    align-items: flex-start;
+}
+
+/* Alternating layout logic for even-numbered items */
+.feature-item:nth-child(even) .feature-icon-wrapper {
+    grid-column: 2; /* Move icon to the second column */
+    justify-self: end; /* Align the icon to the right of its column */
+}
+
+.feature-item:nth-child(even) .feature-description {
+    grid-column: 1; /* Move text to the first column */
+    grid-row: 1;
+    text-align: right; /* Align the text to the right */
+}
+
+
+.feature-description h3 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--heading-color);
+    margin: 0 0 1rem 0;
+}
+
+.feature-description .feature-main-description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--subtle-text-color);
+    margin-bottom: 2rem;
+    max-width: 600px;
+}
+
+/* Ensure right-aligned text doesn't flow off-screen */
+.feature-item:nth-child(even) .feature-description .feature-main-description {
+    margin-left: auto;
+}
+
+
+.feature-sub-points {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.feature-sub-points li {
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+/* Custom checkmark icon before each list item */
+.feature-sub-points li::before {
+    content: '✔';
+    color: var(--primary-color);
+    margin-right: 0.75rem;
+    font-size: 1.2rem;
+}
+
+/* Specific alignment for the alternating layout */
+.feature-item:nth-child(even) .feature-sub-points li {
+    justify-content: flex-end; /* Align list items to the right */
+}
+
+.feature-item:nth-child(even) .feature-sub-points li::before {
+    margin-right: 0;
+    margin-left: 0.75rem;
+    order: 1; /* This moves the checkmark to the end of the line */
+}
+
+.feature-divider {
+    margin: 6rem auto;
+}
+
+/* --- RESPONSIVENESS for features page --- */
+
+@media (max-width: 768px) {
+    /* This will stack the icon and text on mobile */
+    .feature-item,
+    .feature-item:nth-child(even) {
+        grid-template-columns: 1fr; /* Change to a single column layout */
+        gap: 2rem;
+        text-align: left !important; /* Reset text alignment for all items */
+    }
+
+    /* Reset the grid order for even items on mobile */
+    .feature-item:nth-child(even) .feature-icon-wrapper,
+    .feature-item:nth-child(even) .feature-description {
+        grid-column: 1;
+    }
+
+    .feature-icon-wrapper {
+        justify-self: start !important; /* Ensure icon is always on the left */
+    }
+    
+    /* Reset the sub-point alignment for even items on mobile */
+    .feature-item:nth-child(even) .feature-sub-points li {
+        justify-content: flex-start;
+    }
+    .feature-item:nth-child(even) .feature-sub-points li::before {
+        margin-right: 0.75rem;
+        margin-left: 0;
+        order: -1; /* Move the checkmark back to the start */
+    }
+
+    /* Adjusting text size for mobile */
+    .feature-description h3 {
+        font-size: 1.5rem;
+    }
+}
+
+/* --- STYLES FOR THE DONATE PAGE --- */
+
+.donate-section {
+    padding: 2rem 0 8rem 0;
+}
+
+.donate-content-wrapper {
+    max-width: 700px;
+    margin: 0 auto;
+    background: var(--surface-color);
+    padding: 3rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    text-align: center; /* Center the text and button */
+}
+
+.donate-content-wrapper h3 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: var(--heading-color);
+    margin: 0 0 1.5rem 0;
+}
+
+.donate-content-wrapper p {
+    color: var(--subtle-text-color);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.donate-button-wrapper {
+    margin-top: 3rem;
+}
+
+.donate-button-wrapper .cta-button {
+    padding: 1.2rem 3rem; /* Make the button larger and more prominent */
+    font-size: 1.2rem;
+}
+
+/* --- STYLES FOR THE DONATE PAGE --- */
+
+.donate-section {
+    padding: 2rem 0 8rem 0;
+}
+
+.donate-content-wrapper {
+    max-width: 700px;
+    margin: 0 auto;
+    background: var(--surface-color);
+    padding: 3rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    text-align: center;
+}
+
+.donate-content-wrapper h3 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: var(--heading-color);
+    margin-top: 0;
+    margin-bottom: 2rem;
+}
+
+.donate-content-wrapper p {
+    color: var(--subtle-text-color);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.donate-button-wrapper {
+    margin-top: 3rem;
+}
+
+/* Make the button on this page larger for more impact */
+.donate-button-wrapper .cta-button {
+    font-size: 1.2rem;
+    padding: 1.2rem 3rem;
+}
+
+/* --- STYLES FOR THE WEBSITE CREATION FORMS --- */
+
+/* Style for the fieldset groups */
+.form-fieldset {
+    border: none;
+    padding: 0;
+    margin: 0 0 3rem 0;
+    border-top: 1px solid var(--border-color);
+}
+
+.form-fieldset legend {
+    padding: 0 1rem;
+    margin-left: -1rem; /* Aligns legend with the start of the box */
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--heading-color);
+}
+
+/* Custom styling for dropdowns to match our theme */
+.auth-form-wrapper select {
+    width: 100%;
+    padding: 0.9rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+
+    /* These lines remove the default browser arrow and add our custom one */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='3' stroke='%239ca3af'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5' /%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+}
+
+.auth-form-wrapper select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.3);
+}
+
+/* Visual separator for the project groups */
+.project-form-group:not(:last-of-type) {
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+}
+
+.project-form-group .form-group:last-of-type {
+    margin-bottom: 0;
+}

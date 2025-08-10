@@ -1,0 +1,38 @@
+<!-- builder/templates/builder/editor_entry.html -->
+{% extends "core/base_blank.html" %}
+{% load static %}
+
+{% block head_extra %}
+    {# THE FIX IS HERE: This block now has logic for both modes. #}
+
+    {% if is_debug %}
+        <!-- DEVELOPMENT MODE -->
+        <!-- This script connects to the Vite dev server for Hot Module Replacement -->
+        <script type="module" src="{{ vite_dev_server_url }}/@vite/client"></script>
+    {% else %}
+        <!-- PRODUCTION MODE -->
+        <!-- This loop will inject the correct CSS file(s) from our `npm run build` -->
+        {% for css_file in vite_css_files %}
+            <link rel="stylesheet" href="{% static 'vite/'|add:css_file %}">
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <!-- This is the root element where our entire Vue application will be mounted. -->
+    <div id="app"></div>
+{% endblock %}
+
+{% block body_extra %}
+    {# This block also has logic for both modes. #}
+
+    {% if is_debug %}
+        <!-- DEVELOPMENT MODE -->
+        <!-- This script loads our main Vue app from the Vite dev server -->
+        <script type="module" src="{{ vite_dev_server_url }}/src/main.ts"></script>
+    {% else %}
+        <!-- PRODUCTION MODE -->
+        <!-- This script tag loads our compiled Vue.js application -->
+        <script type="module" src="{% static 'vite/'|add:vite_js_file %}"></script>
+    {% endif %}
+{% endblock %} 

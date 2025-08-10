@@ -1,0 +1,33 @@
+<!-- accounts/templates/accounts/signup.html -->
+{% extends "core/base.html" %}
+
+{% block content %}
+    <main>
+        <!-- PAGE HERO -->
+        <section class="page-hero-section">
+            <div class="hero-title-wrapper">
+                <h1 class="hero-title">Create Your Account</h1>
+            </div>
+            <p class="hero-subtitle fade-in">
+                Join a community of creators and set the new standard.
+            </p>
+        </section>
+
+        <!-- SIGNUP FORM SECTION -->
+        <section class="auth-form-section">
+            <div class="auth-form-wrapper">
+                <form method="POST">
+                    <!-- Django's security token is essential for any POST form -->
+                    {% csrf_token %}
+                    
+                    <!-- This will render the form fields Django provides (username, password, etc.) -->
+                    {{ form.as_p }}
+
+                    <div class="form-submit-wrapper">
+                        <button type="submit" class="cta-button">Create Account</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+{% endblock %}

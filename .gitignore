@@ -1,0 +1,21 @@
+# General
+__pycache__/
+*.pyc
+
+# Django
+/backend/db.sqlite3
+/backend/.env
+/backend/staticfiles/
+/backend/media/
+/backend/venv/
+
+# Vue / Node
+/frontend/node_modules/
+/frontend/dist/
+/frontend/.vite/
+npm-debug.log*
+
+# IDE / Editor specific
+.vscode/
+.idea/
+.DS_Store

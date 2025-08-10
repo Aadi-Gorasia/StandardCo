@@ -1,0 +1,47 @@
+<!-- core/templates/core/contact.html -->
+{% extends "core/base.html" %}
+
+{% block content %}
+    <main>
+        <!-- PAGE HERO -->
+        <section class="page-hero-section">
+            <div class="hero-title-wrapper">
+                <h1 class="hero-title">Let's Talk.</h1>
+            </div>
+            <p class="hero-subtitle fade-in">
+                Have a question, an idea, or a project you want to discuss? We're ready to listen.
+            </p>
+        </section>
+
+        <hr class="visual-divider">
+
+        <!-- CONTACT FORM SECTION -->
+        <section class="contact-form-section">
+            <div class="contact-form-wrapper">
+                <form action="" method="POST">
+                    <!-- Django's security token is essential for any POST form -->
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" name="name" id="name" placeholder="Your Name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" name="email" id="email" placeholder="you@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea name="message" id="message" rows="6" placeholder="Tell us what's on your mind..." required></textarea>
+                    </div>
+
+                    <div class="form-submit-wrapper">
+                        <button type="submit" class="cta-button" style="cursor: pointer;">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+{% endblock %}

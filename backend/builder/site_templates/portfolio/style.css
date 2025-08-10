@@ -1,0 +1,161 @@
+/* A sophisticated, "Dusk" themed style for the generated portfolio site */
+
+:root {
+    /* These variables are injected by the backend based on user choice */
+    --primary-color: {{ theme_color }};
+    --font-family: {{ font_family }};
+
+    /* These are the core "Dusk" theme colors for consistency */
+    --background-color: #111827;
+    --surface-color: #1f2937;
+    --text-color: #d1d5db;
+    --heading-color: #f9fafb;
+    --subtle-text-color: #9ca3af;
+    --border-color: rgba(255, 255, 255, 0.1);
+    
+    /* These are the core "Dusk" theme fonts */
+    --font-heading: 'Space Mono', monospace;
+    --font-body: 'Manrope', sans-serif;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* --- Header --- */
+.site-header {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+.site-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--heading-color);
+}
+.site-header nav a {
+    color: var(--text-color);
+    text-decoration: none;
+    margin-left: 2rem;
+    font-weight: 700;
+    transition: color 0.2s ease;
+}
+.site-header nav a:hover {
+    color: var(--primary-color);
+}
+
+/* --- Hero Section --- */
+.hero {
+    padding: 6rem 0;
+    text-align: center;
+}
+.hero .profession-title {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    /* The user's chosen font style is applied here */
+    font-family: var(--font-family);
+    color: var(--heading-color);
+    margin: 0;
+}
+.hero .bio {
+    max-width: 600px;
+    margin: 1rem auto 0 auto;
+    font-size: 1.2rem;
+    color: var(--subtle-text-color);
+}
+
+/* --- Main Content & Sections --- */
+main {
+    padding: 3rem 0;
+}
+section {
+    margin-bottom: 5rem;
+}
+h2 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: var(--heading-color);
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 3rem;
+}
+
+/* --- Projects --- */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+.project-card {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    padding: 2rem;
+    border-radius: 12px;
+    transition: all 0.2s ease-in-out;
+}
+.project-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+}
+.project-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    margin: 0 0 0.5rem 0;
+    color: var(--primary-color);
+}
+.project-card p {
+    margin: 0;
+    color: var(--text-color);
+}
+
+/* --- Contact Section --- */
+.contact {
+    text-align: center;
+    background: var(--surface-color);
+    padding: 4rem 2rem;
+    border-radius: 12px;
+}
+.contact p {
+    font-size: 1.1rem;
+    color: var(--subtle-text-color);
+    max-width: 500px;
+    margin: 0 auto 1.5rem auto;
+}
+.cta-button {
+    display: inline-block;
+    background: var(--primary-color);
+    color: #fff;
+    padding: 1rem 2.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: transform 0.2s ease;
+}
+.cta-button:hover {
+    transform: scale(1.05);
+}
+
+/* --- Footer --- */
+.site-footer {
+    text-align: center;
+    padding: 3rem 0;
+    margin-top: 4rem;
+    border-top: 1px solid var(--border-color);
+    color: var(--subtle-text-color);
+}

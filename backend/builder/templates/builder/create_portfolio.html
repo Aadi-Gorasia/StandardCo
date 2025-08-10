@@ -1,0 +1,60 @@
+<!-- builder/templates/builder/create_portfolio.html -->
+{% extends "core/base.html" %}
+
+{% block content %}
+    <main>
+        <!-- PAGE HERO -->
+        <section class="page-hero-section">
+            <div class="hero-title-wrapper">
+                <h1 class="hero-title">Portfolio Blueprint</h1>
+            </div>
+            <p class="hero-subtitle fade-in">
+                Fill out the fields below to generate your minimalist portfolio website.
+            </p>
+        </section>
+
+        <!-- PORTFOLIO CREATION FORM SECTION -->
+        <section class="auth-form-section">
+            <div class="auth-form-wrapper">
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <!-- We render each field manually for better layout control -->
+                    <fieldset class="form-fieldset">
+                        <legend>Personal Details</legend>
+                        <div class="form-group">{{ form.full_name.label_tag }}{{ form.full_name }}{{ form.full_name.help_text|safe }}</div>
+                        <div class="form-group">{{ form.profession.label_tag }}{{ form.profession }}{{ form.profession.help_text|safe }}</div>
+                        <div class="form-group">{{ form.bio.label_tag }}{{ form.bio }}{{ form.bio.help_text|safe }}</div>
+                        <div class="form-group">{{ form.contact_email.label_tag }}{{ form.contact_email }}{{ form.contact_email.help_text|safe }}</div>
+                    </fieldset>
+
+                    <fieldset class="form-fieldset">
+                        <legend>Customization</legend>
+                        <div class="form-group">{{ form.theme_color_name.label_tag }}{{ form.theme_color_name }}</div>
+                        <div class="form-group">{{ form.font_family_name.label_tag }}{{ form.font_family_name }}</div>
+                    </fieldset>
+
+                    <fieldset class="form-fieldset">
+                        <legend>Projects (Optional)</legend>
+                        <div class="project-form-group">
+                            <div class="form-group">{{ form.project_1_title.label_tag }}{{ form.project_1_title }}</div>
+                            <div class="form-group">{{ form.project_1_description.label_tag }}{{ form.project_1_description }}</div>
+                        </div>
+                        <div class="project-form-group">
+                            <div class="form-group">{{ form.project_2_title.label_tag }}{{ form.project_2_title }}</div>
+                            <div class="form-group">{{ form.project_2_description.label_tag }}{{ form.project_2_description }}</div>
+                        </div>
+                        <div class="project-form-group">
+                            <div class="form-group">{{ form.project_3_title.label_tag }}{{ form.project_3_title }}</div>
+                            <div class="form-group">{{ form.project_3_description.label_tag }}{{ form.project_3_description }}</div>
+                        </div>
+                    </fieldset>
+
+                    <div class="form-submit-wrapper">
+                        <button type="submit" class="cta-button">Generate & Download Website</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+{% endblock %}

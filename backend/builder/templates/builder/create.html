@@ -1,0 +1,46 @@
+<!-- builder/templates/builder/create.html -->
+{% extends "core/base.html" %}
+
+{% block content %}
+    <main>
+        <!-- PAGE HERO -->
+        <section class="page-hero-section">
+            <div class="hero-title-wrapper">
+                <h1 class="hero-title">Enter Your Details</h1>
+            </div>
+            <p class="hero-subtitle fade-in">
+                Fill out the fields below to populate your new website.
+            </p>
+        </section>
+
+        <!-- WEBSITE CREATION FORM SECTION -->
+        <section class="auth-form-section">
+            <div class="auth-form-wrapper">
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <!-- 
+                        We will render each field manually for better control over styling,
+                        instead of using {{ form.as_p }}.
+                    -->
+                    {% for field in form %}
+                        <div class="form-group">
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {% if field.help_text %}
+                                <p class="helptext">{{ field.help_text }}</p>
+                            {% endif %}
+                            {% for error in field.errors %}
+                                <p class="errorlist">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+
+                    <div class="form-submit-wrapper">
+                        <button type="submit" class="cta-button">Generate & Download Website</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+{% endblock %}
