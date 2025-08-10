@@ -75,6 +75,7 @@ const handleContentChange = (event: Event) => {
 }
 .form-group textarea {
   width: 100%;
+  height: 75vh;
   padding: 8px 12px;
   border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -82,7 +83,7 @@ const handleContentChange = (event: Event) => {
   color: #d1d5db;
   font-family: inherit;
   font-size: 1rem;
-  resize: vertical;
+  resize: none;
 }
 .form-group textarea:focus {
   outline: none;

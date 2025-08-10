@@ -1,43 +1,49 @@
-// editor-frontend/src/stores/editor.ts
-
+// frontend/src/stores/editor.ts
 import { defineStore } from 'pinia'
+import { ref, computed } from 'vue'
 
-// Define a type for our components for TypeScript
-export interface WebComponent {
+// This is the correct, simplified structure from your repo
+export interface Component {
   id: number
-  type: 'heading' | 'paragraph' | 'image' // Added 'image' type
+  component_type: 'heading' | 'paragraph' | 'image'
   content: string
 }
+export interface Project {
+  id: number
+  name: string
+  components: Component[]
+}
 
-export const useEditorStore = defineStore('editor', {
-  state: () => ({
+export const useEditorStore = defineStore('editor', () => {
+  const currentProject = ref<Project | null>({
+    id: 1,
+    name: 'Phoenix Alpha',
     components: [
-      { id: 1, type: 'heading', content: 'Your Awesome Headline' },
-      { id: 2, type: 'paragraph', content: 'This is a paragraph. Click me to edit my text!' },
-      { id: 3, type: 'image', content: 'https://via.placeholder.com/800x400' } // Added a placeholder image component
-    ] as WebComponent[],
-    selectedComponentId: null as number | null,
-  }),
+      { id: 1, component_type: 'heading', content: 'Welcome to the Phoenix Editor.' },
+      { id: 2, component_type: 'paragraph', content: 'Drag components from the left and drop them here. Click to edit on the right.' },
+      { id: 3, component_type: 'image', content: 'https://images.unsplash.com/photo-1555949963-ff98c6258fa9?q=80&w=2070' },
+    ]
+  });
+  const selectedComponentId = ref<number | null>(null);
 
-  getters: {
-    selectedComponent: (state) => {
-      return state.components.find(c => c.id === state.selectedComponentId)
-    }
-  },
+  const selectedComponent = computed((): Component | undefined => {
+    return currentProject.value?.components.find(c => c.id === selectedComponentId.value);
+  });
 
-  actions: {
-    selectComponent(id: number | null) {
-      this.selectedComponentId = id
-    },
-    updateComponentContent(id: number, newContent: string) {
-      const component = this.components.find(c => c.id === id)
-      if (component) {
-        component.content = newContent
-      }
-    },
-    // NEW: This action updates the order of the components array
-    updateComponentOrder(newOrder: WebComponent[]) {
-        this.components = newOrder
+  function selectComponent(id: number | null) {
+    selectedComponentId.value = id;
+  }
+  function updateComponentContent(id: number, newContent: string) {
+    if (selectedComponent.value) {
+      selectedComponent.value.content = newContent;
     }
   }
-})
+  
+  return {
+    currentProject,
+    selectedComponentId,
+    selectedComponent,
+    selectComponent,
+    updateComponentContent,
+  }
+});
